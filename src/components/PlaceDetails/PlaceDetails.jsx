@@ -9,7 +9,7 @@ const PlaceDetails = ({ getPlace, selected, refProp }) => {
   if(selected) refProp?.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   const classes = useStyles();  
     return (
-      <Card elevation={6} style={{ borderRadius: '7px' }}>
+      <Card elevation={6} style={{ borderRadius: '7px', border: '0.1em solid #c095fc' }}>
         <CardMedia
           style={{ height: 300 }}
           image={getPlace.photo ? getPlace.photo.images.large.url : 'https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png'}
@@ -24,7 +24,17 @@ const PlaceDetails = ({ getPlace, selected, refProp }) => {
           </Box>
           <Box style={{ display: 'flex', justifyContent: 'space-between', textAlign: 'end' }}>
             <Typography variant="subtitle1" style={{ fontFamily: 'Trebuchet MS' }}>Price</Typography>
-            <Typography gutterBottom variant="subtitle1" style={{ color: '#060071', fontFamily: 'Trebuchet MS' }}>{getPlace.price_level ? getPlace.price_level : 'Check it online'}</Typography>
+            <Typography gutterBottom variant="subtitle1" style={{ color: '#060071', fontFamily: 'Trebuchet MS' }}>{getPlace.price_level ? (getPlace.price_level) : (
+              getPlace.web_url ? (
+                <Button size="small" style={{color:'#FF0000', border: '0.1em solid #060071'}} onClick={() => window.open(getPlace.web_url, '_blank')}>
+                  Check Online
+                </Button>
+              ) : (
+                <Button size="small" disabled="true">
+                  Check Online
+                </Button>
+              )
+            ) }</Typography>
           </Box>
           <Box style={{ display: 'flex', justifyContent: 'space-between', textAlign: 'end' }}>
             <Typography variant="subtitle1" style={{ fontFamily: 'Trebuchet MS' }}>Ranking</Typography>
