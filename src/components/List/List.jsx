@@ -1,9 +1,13 @@
 import { React, useState, useEffect, createRef } from "react";
 import { CircularProgress, Grid, Typography, InputLabel, MenuItem, FormControl, Select, Card } from "@material-ui/core";
+import { IoRestaurantOutline } from "react-icons/io5";
+import { MdCategory, MdOutlineAttractions } from "react-icons/md";
+import { FiBarChart2 } from "react-icons/fi"
+import { AiOutlineStar } from "react-icons/ai";
 import PlaceDetails from '../PlaceDetails/PlaceDetails';
 import useSytles from './styles.js';
 
-const List = ({ getPlaces, childClicked, isLoading, type, setType, rating, setRating }) => {
+const List = ({ getPlaces, childClicked, isLoading, type, setType, rating, setRating, weatherData }) => {
   const classes = useSytles();  
   const [elRefs, setElRefs] = useState([]);
 
@@ -24,20 +28,19 @@ const List = ({ getPlaces, childClicked, isLoading, type, setType, rating, setRa
       ) : (
         <>
           <FormControl className={classes.formControl}>
-            <InputLabel>Type</InputLabel>
+            <InputLabel><MdCategory/> Type</InputLabel>
             <Select value={type} onChange={(e) => setType(e.target.value)}>
-              <MenuItem value="restaurants">Restaurants</MenuItem>
-              <MenuItem value="attractions">Attractions</MenuItem>
+              <MenuItem value="restaurants"><IoRestaurantOutline style={{marginRight: "2px"}}/> Restaurants</MenuItem>
+              <MenuItem value="attractions"><MdOutlineAttractions style={{marginRight: "2px"}}/> Attractions</MenuItem>
             </Select>
           </FormControl>
           <FormControl className={classes.formControl}>
-            <InputLabel>Rating</InputLabel>
+            <InputLabel><FiBarChart2/> Rating</InputLabel>
             <Select value={rating} onChange={(e) => setRating(e.target.value)}>
-              <MenuItem value={0}>All</MenuItem>
-              <MenuItem value={1}>Above 1.0</MenuItem>
-              <MenuItem value={2}>Above 2.0</MenuItem>
-              <MenuItem value={3}>Above 3.0</MenuItem>
-              <MenuItem value={4}>Above 4.0</MenuItem>
+              <MenuItem value={0}><AiOutlineStar/> All</MenuItem>
+              <MenuItem value={3}><AiOutlineStar/> Above 3.0</MenuItem>
+              <MenuItem value={4}><AiOutlineStar/> Above 4.0</MenuItem>
+              <MenuItem value={4.5}><AiOutlineStar/> Above 4.5</MenuItem>
             </Select>
           </FormControl>
           <Grid container spacing={3} className={classes.list}>
@@ -50,6 +53,7 @@ const List = ({ getPlaces, childClicked, isLoading, type, setType, rating, setRa
                   selected={Number(childClicked) === index}
                   refProp={elRefs[index]}
                   getPlace={place}
+                  weatherData={weatherData}
                 />
               </Grid>
             ))}

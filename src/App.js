@@ -7,7 +7,7 @@ import Map from './components/Map/Map';
 
 const App = () => {
   const [places, setPlaces] = useState([]);
-  // const [weatherData, setWeatherData] = useState([]);
+  const [weatherData, setWeatherData] = useState([]);
   const [childClicked, setChildClicked] = useState(null);
   const [filteredPlaces, setFilteredPlaces] = useState([]);
 
@@ -35,10 +35,10 @@ const App = () => {
   useEffect(() => {
     if (bounds.sw && bounds.ne) {
       setIsLoading(true);
-      // getWeatherData(coordinates.lat, coordinates.lng).then((data) => {
-      //   console.log(data);
-      //   setWeatherData(data); 
-      // });
+      getWeatherData(coordinates.lat, coordinates.lng).then((data) => {
+        console.log(data);
+        setWeatherData(data); 
+      });
       getPlacesData(type, bounds.sw, bounds.ne).then((data) => {
         console.log(data);
         setPlaces(data);
@@ -61,6 +61,7 @@ const App = () => {
             setType={setType}
             rating={rating}
             setRating={setRating}
+            weatherData={weatherData}
           />
         </Grid>
         <Grid item xs={12} md={8}>
@@ -70,7 +71,7 @@ const App = () => {
             coordinates={coordinates}
             places={filteredPlaces.length ? filteredPlaces : places}
             setChildClicked={setChildClicked}
-            // weatherData = {weatherData}
+            weatherData = {weatherData}
           />
         </Grid>
       </Grid>

@@ -3,23 +3,24 @@ import GoogleMapReact from "google-map-react";
 import { Paper, Typography, useMediaQuery } from "@material-ui/core";
 import LocationOnOutlinedIcon from "@material-ui/icons/LocationOnOutlined";
 import Rating from "@material-ui/lab/Rating";
+import mapStyles from "./mapStyles.js";
 
 import useStyles from './styles.js';
 
-// weatherData
-const Map = ({ setCoordinates, setBounds, coordinates, places, setChildClicked }) => {
+// 
+const Map = ({ setCoordinates, setBounds, coordinates, places, setChildClicked, weatherData }) => {
   const classes = useStyles();
   const isDesktop = useMediaQuery('(min-width:600px)');  
   
   return (
     <div className={classes.mapContainer}>
       <GoogleMapReact
-        bootstrapURLKeys={{ key: 'AIzaSyAhehRZvye5NO7bZVVtnCsN13WZ8MYhBaE' }}
+        bootstrapURLKeys={{ key: process.env.REACT_APP_GOOGLE_MAPS_API_KEY }}
         defaultCenter={coordinates}
         center={coordinates}
         defaultZoom={14}
         margin={[50, 50, 50, 50]}
-        options={''}
+        options={{ disableDefaultUI: true, zoomControl: true, styles: mapStyles }}
         onChange={(e) => {
           setCoordinates({ lat: e.center.lat, lng: e.center.lng });
           setBounds({ ne: e.marginBounds.ne, sw: e.marginBounds.sw });
@@ -36,9 +37,13 @@ const Map = ({ setCoordinates, setBounds, coordinates, places, setChildClicked }
             {!isDesktop ? (
               <LocationOnOutlinedIcon color="primary" fontSize="large" />
             ) : (
-              <Paper elevation={3} className={classes.paper}>
-                <Typography className={classes.typography} variant="subtitle2" gutterBottom>
-                  {place.name}
+              <Paper elevation={1} className={classes.paper}>
+                <Typography style={{display: "flex"}} variant="subtitle2" gutterBottom>
+                  {place.name}<img 
+                  src={`https://openweathermap.org/img/w/${weatherData.weather[0].icon}.png`}
+                  width={40}
+                  height={40}
+                  />
                 </Typography>
                 <img 
                   className={classes.pointer}
@@ -51,9 +56,9 @@ const Map = ({ setCoordinates, setBounds, coordinates, places, setChildClicked }
             }
           </div>
         ))}
-        {/* {weatherData?.list?.length && weatherData.list.map((data, i) => (
+        {/* {weatherData?.length && weatherData.map((data, i) => (
           <div key={i} lat={data.coord.lat} lng={data.coord.lon}>
-            <img src={`https://openweathermap.org/img/w/${data.weather.icon}.png`} height="70px" />
+            <img src={`https://openweathermap.org/img/w/${data.weather[0].icon}.png`} height="70px" />
           </div>
         ))} */}
       </GoogleMapReact>
