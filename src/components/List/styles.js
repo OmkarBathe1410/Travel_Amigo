@@ -20,7 +20,7 @@ export default makeStyles((theme) => ({
     boxShadow: '0px 0px 10px rgb(0, 0, 0, 0.2)',
   },
   list: {
-    height:'62vh', overflow: 'scroll', overflowX: 'hidden', marginTop: '15px',
+    height:'63vh', overflow: 'scroll', overflowX: 'hidden', marginTop: '15px',
     '&::-webkit-scrollbar': {
       width: '0.4em',
     },

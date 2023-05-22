@@ -55,12 +55,7 @@ const Map = ({ setCoordinates, setBounds, coordinates, places, setChildClicked, 
             )
             }
           </div>
-        ))}
-        {/* {weatherData?.length && weatherData.map((data, i) => (
-          <div key={i} lat={data.coord.lat} lng={data.coord.lon}>
-            <img src={`https://openweathermap.org/img/w/${data.weather[0].icon}.png`} height="70px" />
-          </div>
-        ))} */}
+        ))}      
       </GoogleMapReact>
     </div>
   );
