@@ -7,7 +7,6 @@ import mapStyles from "./mapStyles.js";
 
 import useStyles from './styles.js';
 
-// 
 const Map = ({ setCoordinates, setBounds, coordinates, places, setChildClicked, weatherData }) => {
   const classes = useStyles();
   const isDesktop = useMediaQuery('(min-width:600px)');  
